@@ -18,7 +18,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: swift-actions/setup-swift@150267bf6ba01f9d942a4bd55aa2f35ba586767d
+    - uses: swift-actions/setup-swift@cdcbe8e35d3801acd82d7109285e6ab22c9212c2
       with:
         swift-version: ${{ matrix.swift-version }}
     - uses: actions/checkout@v4
