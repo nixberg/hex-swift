@@ -6,7 +6,8 @@ extension RangeReplaceableCollection<UInt8> {
         while let high = iterator.next() {
             guard let high = UInt4(hexEncoded: high),
                   let low = iterator.next(),
-                  let low = UInt4(hexEncoded: low) else {
+                  let low = UInt4(hexEncoded: low)
+            else {
                 return nil
             }
             self.append(Element(nibbles: (high, low)))
