@@ -10,7 +10,10 @@ public struct HexEncodedString: Codable {
         let container = try decoder.singleValueContainer()
         let hexString = try container.decode(String.self)
         guard let wrappedValue = Array(hexEncoded: hexString) else {
-            throw DecodingError.dataCorruptedError(in: container, debugDescription: "TODO")
+            throw DecodingError.dataCorruptedError(
+                in: container,
+                debugDescription: "Not a valid hex-encoded string."
+            )
         }
         self.wrappedValue = wrappedValue
     }
