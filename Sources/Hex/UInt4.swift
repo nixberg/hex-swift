@@ -19,11 +19,11 @@ struct UInt4 {
         }
     }
     
-    func hexEncodedByte(usingUppercaseCharacters useUppercaseCharacters: Bool) -> UInt8 {
+    func hexEncodedByte(uppercase: Bool) -> UInt8 {
         if rawValue < 0xa {
             rawValue + UInt8(ascii: "0")
         } else {
-            if useUppercaseCharacters {
+            if uppercase {
                 rawValue + UInt8(ascii: "A") - 0xa
             } else {
                 rawValue + UInt8(ascii: "a") - 0xa
