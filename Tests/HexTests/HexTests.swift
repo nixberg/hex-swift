@@ -9,9 +9,23 @@ final class HexStringTests: XCTestCase {
     func testDecoding() {
         XCTAssertEqual(Array(hexEncoded: lowercaseExpected), bytes)
         XCTAssertEqual(Array(hexEncoded: uppercaseExpected), bytes)
+        XCTAssertNil(Array(hexEncoded: lowercaseExpected.replacingOccurrences(of: "a", with: "а"))) // Homoglyph
         XCTAssertNil(Array(hexEncoded: "01 23456789abcdef"))
         XCTAssertNil(Array(hexEncoded: "0x0123456789abcdef"))
         XCTAssertNil(Array(hexEncoded: "01:23:45:67:89:ab:cd:ef"))
+        
+        let withWhitespace = """
+            01 2   345678   9\r\n\rab  cd
+            
+            e
+            f
+            
+            """
+        XCTAssertEqual(Array(hexEncoded: withWhitespace, skipWhitespace: true), bytes)
+        XCTAssertNil(Array(
+            hexEncoded: withWhitespace.replacingOccurrences(of: "e", with: "е"), // Homoglyph
+            skipWhitespace: true
+        ))
     }
     
     func testArrayEncoding() {

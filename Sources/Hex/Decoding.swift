@@ -14,7 +14,21 @@ extension RangeReplaceableCollection<UInt8> {
         }
     }
     
-    public init?(hexEncoded hexString: some StringProtocol) {
-        self.init(hexEncoded: hexString.utf8)
+    public init?(hexEncoded hexString: some StringProtocol, skipWhitespace: Bool = false) {
+        if skipWhitespace {
+            self.init(hexEncoded: hexString.lazy.filter(\.isNotWhitespace).map(\.asciiValueOrNull))
+        } else {
+            self.init(hexEncoded: hexString.utf8)
+        }
+    }
+}
+
+extension Character {
+    fileprivate var isNotWhitespace: Bool {
+        !isWhitespace
+    }
+    
+    fileprivate var asciiValueOrNull: UInt8 {
+        asciiValue ?? 0
     }
 }
