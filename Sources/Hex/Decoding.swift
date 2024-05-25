@@ -21,6 +21,10 @@ extension RangeReplaceableCollection<UInt8> {
             self.init(hexEncoded: hexString.utf8)
         }
     }
+    
+    public init?(hexEncoded hexString: some StringProtocol, options: DecodingOptions) {
+        self.init(hexEncoded: hexString, skipWhitespace: options.contains(.ignoreWhitespace))
+    }
 }
 
 extension Character {
@@ -31,4 +35,14 @@ extension Character {
     fileprivate var asciiValueOrNull: UInt8 {
         asciiValue ?? 0
     }
+}
+
+public struct DecodingOptions: OptionSet {
+    public let rawValue: UInt
+    
+    public init(rawValue: UInt) {
+        self.rawValue = rawValue
+    }
+    
+    public static let ignoreWhitespace = Self(rawValue: 1 << 0)
 }
