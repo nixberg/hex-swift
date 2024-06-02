@@ -80,10 +80,7 @@ extension SIMD16<UInt8> {
         var d = Self.zero
         d.replace(with: a, where: isDigit)
         d.replace(with: c, where: isLetter)
-        guard Self.one.replacing(
-            with: Self.zero,
-            where: isDigit .^ isLetter
-        ).wrappedSum() == 0 else {
+        guard all(isDigit .^ isLetter) else {
             throw DecodingError.invalidCharacter
         }
         return d.evenHalf &<< 4 | d.oddHalf
@@ -100,10 +97,7 @@ extension SIMD2<UInt8> {
         var d = Self.zero
         d.replace(with: a, where: isDigit)
         d.replace(with: c, where: isLetter)
-        guard Self.one.replacing(
-            with: Self.zero,
-            where: isDigit .^ isLetter
-        ).wrappedSum() == 0 else {
+        guard all(isDigit .^ isLetter) else {
             throw DecodingError.invalidCharacter
         }
         return d[0] &<< 4 | d[1]
