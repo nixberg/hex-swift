@@ -1,0 +1,15 @@
+{
+  "originHash" : "3ca42bdd9b6dcdc1bef5b1950d64ea72d688275a7fbeeeeadb76e57d602188a6",
+  "pins" : [
+    {
+      "identity" : "simd-extras-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nixberg/simd-extras-swift",
+      "state" : {
+        "branch" : "main",
+        "revision" : "3db7b24b2cbb4d66ebae4b5d559876c1f4044638"
+      }
+    }
+  ],
+  "version" : 3
+}

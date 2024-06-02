@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 5.10
 
 import PackageDescription
 
@@ -9,9 +9,17 @@ let package = Package(
             name: "Hex",
             targets: ["Hex"]),
     ],
+    dependencies: [
+        .package(
+            url: "https://github.com/nixberg/simd-extras-swift",
+            branch: "main"),
+    ],
     targets: [
         .target(
-            name: "Hex"),
+            name: "Hex",
+            dependencies: [
+                .product(name: "SIMDExtras", package: "simd-extras-swift"),
+            ]),
         .testTarget(
             name: "HexTests",
             dependencies: ["Hex"]),
