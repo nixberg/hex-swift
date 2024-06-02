@@ -75,7 +75,7 @@ extension SIMD16<UInt8> {
         let a = self &- 0x30
         let isDigit = a .< 0x0a
         let b = (self | Self(repeating: 0b0010_0000)) &- 0x61
-        let isLetter = b .< 0x07
+        let isLetter = b .< 0x06
         let c = b &+ 0x0a
         var d = Self.zero
         d.replace(with: a, where: isDigit)
@@ -92,7 +92,7 @@ extension SIMD2<UInt8> {
         let a = self &- 0x30
         let isDigit = a .< 0x0a
         let b = (self | Self(repeating: 0b0010_0000)) &- 0x61
-        let isLetter = b .< 0x07
+        let isLetter = b .< 0x06
         let c = b &+ 0x0a
         var d = Self.zero
         d.replace(with: a, where: isDigit)
