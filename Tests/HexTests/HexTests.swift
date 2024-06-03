@@ -30,6 +30,22 @@ final class HexStringTests: XCTestCase {
         }
     }
     
+    func testCorrectDecoding() {
+        func test(withCount count: Int) {
+            var bytes = Array(repeating: UInt8(ascii: "0"), count: count)
+            for byte: UInt8 in 0...255 {
+                bytes[bytes.endIndex - 1] = byte
+                if byte.isHexDigit {
+                    XCTAssertNoThrow(try Array(hexEncoded: bytes))
+                } else {
+                    XCTAssertThrowsError(try Array(hexEncoded: bytes))
+                }
+            }
+        }
+        test(withCount: 2)  // SIMD2
+        test(withCount: 18) // SIMD16
+    }
+    
     func testHexEncodedString() throws {
         struct Struct: Codable {
             @HexString var bytes: String
@@ -45,5 +61,19 @@ extension Array<UInt8> {
     fileprivate static func random(in _: UnboundedRange, count: Int) -> Self {
         var rng = SystemRandomNumberGenerator()
         return (0..<count).map({ _ in rng.next() })
+    }
+}
+
+extension UInt8 {
+    fileprivate var isHexDigit: Bool {
+        switch self {
+        case
+            UInt8(ascii: "0")...UInt8(ascii: "9"),
+            UInt8(ascii: "A")...UInt8(ascii: "F"),
+            UInt8(ascii: "a")...UInt8(ascii: "f"):
+            true
+        default:
+            false
+        }
     }
 }
