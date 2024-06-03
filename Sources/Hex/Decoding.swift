@@ -76,14 +76,11 @@ extension SIMD16<UInt8> {
         let isDigit = a .< 0x0a
         let b = (self | Self(repeating: 0b0010_0000)) &- 0x61
         let isLetter = b .< 0x06
-        let c = b &+ 0x0a
-        var d = Self.zero
-        d.replace(with: a, where: isDigit)
-        d.replace(with: c, where: isLetter)
+        let c = a.replacing(with: b &+ 0x0a, where: isLetter)
         guard all(isDigit .^ isLetter) else {
             throw DecodingError.invalidCharacter
         }
-        return d.evenHalf &<< 4 | d.oddHalf
+        return c.evenHalf &<< 4 | c.oddHalf
     }
 }
 
@@ -93,13 +90,10 @@ extension SIMD2<UInt8> {
         let isDigit = a .< 0x0a
         let b = (self | Self(repeating: 0b0010_0000)) &- 0x61
         let isLetter = b .< 0x06
-        let c = b &+ 0x0a
-        var d = Self.zero
-        d.replace(with: a, where: isDigit)
-        d.replace(with: c, where: isLetter)
+        let c = a.replacing(with: b &+ 0x0a, where: isLetter)
         guard all(isDigit .^ isLetter) else {
             throw DecodingError.invalidCharacter
         }
-        return d[0] &<< 4 | d[1]
+        return c[0] &<< 4 | c[1]
     }
 }
